@@ -2,6 +2,7 @@ package var_type.var_roots;
 
 import env.StaticVars;
 import var_type.InstanceBoolean;
+import var_type.InstanceInt;
 import var_type.var_interface.IInstance;
 import var_type.var_roots.permission_control.InstancePermission;
 
@@ -52,7 +53,8 @@ public class InstanceObject implements IInstance {
     }
 
     public boolean is(InstanceObject instanceObject) {
-        return instanceObject.getMyClass().equals(this.getMyClass());
+        return instanceObject.getMyClass().equals(this.getMyClass())
+                && instanceObject.getData().equals(this.getData());
     }
 
     @Override
@@ -63,5 +65,26 @@ public class InstanceObject implements IInstance {
     @Override
     public IInstance convertTo(ClassObject classType) {
         return null;
+    }
+
+    public Object getData(){
+        return null;
+    }
+
+    @Override
+    public InstanceInt len() {
+        return new InstanceInt(myPermission, 0);
+    }
+
+    @Override
+    public InstanceObject runAnyFunction(String name, ClassObject cls, int line, InstanceObject... parameters) {
+        switch (name) {
+            case "type" -> getMyClass();
+            case "isinstance" -> isInstance(cls);
+            case "is" -> is(parameters[0]);
+            case "convertTo" -> convertTo(cls);
+            case "len" -> len();
+        }
+        return this;
     }
 }

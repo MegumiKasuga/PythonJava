@@ -5,8 +5,7 @@ import var_type.var_interface.IInstance;
 import var_type.var_roots.ClassObject;
 import var_type.var_roots.permission_control.InstancePermission;
 
-public class ClassBoolean extends ClassObject {
-
+public class ClassNamespace extends ClassObject {
     @Override
     public ClassObject[] parent() {
         return new ClassObject[]{StaticVars.OBJECT};
@@ -14,11 +13,12 @@ public class ClassBoolean extends ClassObject {
 
     @Override
     public String getKeyWord() {
-        return "bool";
+        return "namespace";
     }
 
     @Override
     public IInstance getInstance(InstancePermission permission) {
-        return new InstanceBoolean(permission);
+        return new InstanceNamespace(permission);
     }
+
 }

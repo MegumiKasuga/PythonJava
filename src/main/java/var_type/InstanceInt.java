@@ -10,6 +10,7 @@ import var_type.var_roots.permission_control.InstancePermission;
 
 public class InstanceInt extends InstanceObject implements IInstanceNumber {
 
+
     int data;
 
     public InstanceInt(InstancePermission myPermission) {
@@ -81,12 +82,42 @@ public class InstanceInt extends InstanceObject implements IInstanceNumber {
 
     @Override
     public String toString() {
-        return data + "";
+        return String.valueOf(data);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof InstanceInt)) return false;
         return ((InstanceInt) obj).data == data;
+    }
+
+    @Override
+    public Object getData() {
+        return data;
+    }
+
+    @Override
+    public InstanceInt len() {
+        return new InstanceInt(myPermission, 0);
+    }
+
+    @Override
+    public InstanceObject runAnyFunction(String name, ClassObject cls, int line, InstanceObject... parameters) {
+        switch (name) {
+            case "+" -> addWith((IInstanceNumber) parameters[0]);
+            case "-" -> minusWith((IInstanceNumber) parameters[0]);
+            case "*" -> multiplyWith((IInstanceNumber) parameters[0]);
+            case "/" -> divideWith((IInstanceNumber) parameters[0]);
+            case "and" -> and((ILogicable) parameters[0]);
+            case "or" -> or((ILogicable) parameters[0]);
+            case "not" -> not();
+            case "int" -> convertTo(StaticVars.INT);
+            case "bool" -> convertTo(StaticVars.BOOLEAN);
+            case "str" -> convertTo(StaticVars.STR);
+            case "float" -> convertTo(StaticVars.FLOAT);
+            case "len" -> len();
+            default -> super.runAnyFunction(name, cls, line, parameters);
+        }
+        return InstanceError.getDefault(line);
     }
 }

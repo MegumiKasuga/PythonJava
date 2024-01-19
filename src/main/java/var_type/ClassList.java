@@ -1,11 +1,15 @@
 package var_type;
 
 import env.StaticVars;
+import var_type.var_interface.IClass;
 import var_type.var_interface.IInstance;
 import var_type.var_roots.ClassObject;
 import var_type.var_roots.permission_control.InstancePermission;
 
-public class ClassBoolean extends ClassObject {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClassList extends ClassObject {
 
     @Override
     public ClassObject[] parent() {
@@ -14,11 +18,11 @@ public class ClassBoolean extends ClassObject {
 
     @Override
     public String getKeyWord() {
-        return "bool";
+        return "list";
     }
 
     @Override
     public IInstance getInstance(InstancePermission permission) {
-        return new InstanceBoolean(permission);
+        return new InstanceList(permission);
     }
 }

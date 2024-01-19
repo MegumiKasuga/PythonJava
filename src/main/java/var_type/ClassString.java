@@ -5,7 +5,7 @@ import var_type.var_interface.IInstance;
 import var_type.var_roots.ClassObject;
 import var_type.var_roots.permission_control.InstancePermission;
 
-public class ClassBoolean extends ClassObject {
+public class ClassString extends ClassObject {
 
     @Override
     public ClassObject[] parent() {
@@ -14,11 +14,11 @@ public class ClassBoolean extends ClassObject {
 
     @Override
     public String getKeyWord() {
-        return "bool";
+        return "str";
     }
 
     @Override
     public IInstance getInstance(InstancePermission permission) {
-        return new InstanceBoolean(permission);
+        return super.getInstance(permission);
     }
 }
